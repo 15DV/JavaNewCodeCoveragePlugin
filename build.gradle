@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'ru.spb'
+version = '0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Jacoco
+    implementation 'org.jacoco:org.jacoco.core:0.8.12'
+    implementation 'org.jacoco:org.jacoco.report:0.8.12'
+
+    // GIT
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r'
+
+    // Tests
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'org.assertj:assertj-core:3.26.3'
+}
