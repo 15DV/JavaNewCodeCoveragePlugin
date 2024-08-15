@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 group = 'ru.spb'
@@ -20,4 +21,18 @@ dependencies {
     // Tests
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'org.assertj:assertj-core:3.26.3'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = false
+        csv.required = false
+        html.required = true
+    }
 }
