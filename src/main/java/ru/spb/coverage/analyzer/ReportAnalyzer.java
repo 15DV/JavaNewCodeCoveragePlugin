@@ -1,4 +1,4 @@
-package ru.spb.coverage;
+package ru.spb.coverage.analyzer;
 
 import org.jacoco.core.analysis.Analyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
@@ -11,20 +11,22 @@ import java.io.IOException;
 
 public class ReportAnalyzer {
 
-    private static Logger log = LoggerFactory.getLogger(ReportAnalyzer.class);
+    private ReportAnalyzer() {
+    }
 
-    public CoverageBuilder analyze(String reportFilePath, String sourceClassesDir) {
+    private static final Logger log = LoggerFactory.getLogger(ReportAnalyzer.class);
+
+    public static CoverageBuilder analyze(File reportFile, File sourceClassesDir) {
         var execFileLoader = new ExecFileLoader();
         var coverageBuilder = new CoverageBuilder();
-        var sourceDir = new File(sourceClassesDir);
 
         try {
-            execFileLoader.load(new File(reportFilePath));
+            execFileLoader.load(reportFile);
             var analyzer = new Analyzer(execFileLoader.getExecutionDataStore(), coverageBuilder);
-            analyzer.analyzeAll(sourceDir);
+            analyzer.analyzeAll(sourceClassesDir);
         } catch (IOException e) {
             log.error("Something goes wrong during analyzing classes");
-            throw new CoveragePluginException("Can't analyze .exec report" ,e);
+            throw new CoveragePluginException("Can't analyze .exec report", e);
         }
 
         return coverageBuilder;
