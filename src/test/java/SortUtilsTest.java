@@ -1,9 +1,10 @@
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.spb.coverage.SortUtils;
 
 import java.util.Random;
 import java.util.stream.IntStream;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SortUtilsTest {
 
@@ -19,10 +20,16 @@ class SortUtilsTest {
         SortUtils.bubbleSort(array);
 
         //verify
-        Assertions.assertThat(array)
+        assertThat(array)
                 .isNotNull()
                 .isNotEmpty()
                 .hasSize(100)
                 .isSorted();
+    }
+
+    @Test
+    void shouldNotInsertSortNullArray() {
+        //do
+        SortUtils.insertSort(null);
     }
 }

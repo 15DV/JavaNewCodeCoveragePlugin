@@ -16,6 +16,9 @@ public class SortUtils {
     }
 
     public static void insertSort(int[] array) {
+        if (array == null) {
+            return;
+        }
         for (int i = 1; i < array.length; i++) {
             int key = array[i];
             int j = i - 1;
